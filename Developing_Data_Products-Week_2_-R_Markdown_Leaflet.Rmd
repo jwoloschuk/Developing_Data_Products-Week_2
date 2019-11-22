@@ -1,0 +1,81 @@
+---
+title: "Select Calgary Breweries - Leaflet Project"
+author: "Jordan Woloschuk"
+date: "11/22/2019"
+output: html_document
+---
+
+## Instructions
+
+* Create a web page using R Markdown that features a map created with Leaflet.
+* Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+* Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+
+# Select Breweries in Calgary, Canada
+
+```{r libraries, echo=FALSE}
+library(leaflet)
+```
+
+```{r leaflet, echo=FALSE}
+
+# Select Calgary Breweries
+# 1) Big Rock Brewery 
+# 2) Village Brewery
+# 3) Wild Rose Brewery
+
+
+yyc_breweries <- c(
+        "<a href='https://bigrockbeer.com/'>Big Rock Brewery</a>",
+        "<a href='https://www.villagebrewery.com/'>Village Brewery</a>",
+        "<a href='https://wildrosebrewery.com/'>Wild Rose Brewery</a>"
+)
+
+# Coordinates for the three breweries
+
+
+Lat_Lon <- data.frame(
+        lat = c(50.984623, 51.009481, 51.014633),
+        lon = c(-113.95516, -114.035069, -114.122593)
+        
+)
+
+# Icons for the three breweries
+
+big_rock_Icon <- makeIcon(
+        iconUrl = 'https://pbs.twimg.com/profile_images/1037094719187124224/3nD2VI_d_400x400.jpg',
+        iconWidth=31 * 215 / 230,
+        iconHeight=31,
+        iconAnchorX=31 * 215 / 230 / 2,
+        iconAnchorY=16 
+)
+
+village_Icon <- makeIcon(
+        iconUrl = 'https://www.auarts.ca/sites/default/files/styles/large/public/Village-Brewery-Logo.jpg',
+        iconWidth=31 * 215 / 230,
+        iconHeight=31,
+        iconAnchorX=31 * 215 / 230 / 2,
+        iconAnchorY=16 
+)
+
+wildrose_Icon <- makeIcon(
+        iconUrl = 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Wildrose_Brewery_logo.svg/1280px-Wildrose_Brewery_logo.svg.png',
+        iconWidth=31 * 215 / 230,
+        iconHeight=31,
+        iconAnchorX=31 * 215 / 230 / 2,
+        iconAnchorY=16 
+)
+
+# Icon list
+
+brewery_icons <- iconList(big_rock_Icon, village_Icon, wildrose_Icon)
+
+# Map
+
+Lat_Lon %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(icon=brewery_icons, popup=yyc_breweries)
+
+
+```
